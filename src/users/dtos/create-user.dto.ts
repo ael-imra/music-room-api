@@ -1,11 +1,11 @@
 import {
   IsEmail,
-  IsDate,
   Length,
   IsAlphanumeric,
   IsAlpha,
   IsEnum,
   IsString,
+  IsDateString,
 } from 'class-validator';
 
 export enum Gender {
@@ -27,7 +27,7 @@ export class RegisterBodyDto {
   @IsAlpha()
   @Length(4, 20)
   last_name?: string;
-  @IsDate()
+  @IsDateString()
   date_birthday?: string;
   @IsEnum(Gender)
   gender?: string;
@@ -45,6 +45,8 @@ export class FindUserDto {
   date_birthday?: string;
 
   gender?: string;
+
+  token?: string;
 }
 
 export class LoginBodyDto {

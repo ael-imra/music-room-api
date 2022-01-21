@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Gender } from './dtos/create-user.dto';
 
 @Entity()
-export class User {
+export class Users {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,6 +27,6 @@ export class User {
   @Column({ type: 'enum', enum: Gender })
   gender: string;
 
-  @Column()
+  @Column({ nullable: true })
   token: string;
 }

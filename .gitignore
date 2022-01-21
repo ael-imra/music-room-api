@@ -36,3 +36,6 @@ lerna-debug.log*
 
 # Credintial
 .env
+
+# Request test
+*.http

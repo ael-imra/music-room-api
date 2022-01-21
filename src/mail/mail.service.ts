@@ -1,19 +1,18 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { randomBytes } from 'crypto';
-import { User } from 'src/user/user.entity';
-import { Repository } from 'typeorm';
+import { UserService } from 'src/users/users.service';
 
 @Injectable()
 export class MailService {
   constructor(
     private mailerService: MailerService,
-    @InjectRepository(User) private userRepo: Repository<User>,
+    private userService: UserService,
   ) {}
   async sendConfirmation(email: string, username: string): Promise<boolean> {
-    const token = randomBytes(32).toString('hex');
-    await this.userRepo.update({ email }, { token });
+    const token =
+      randomBytes(16).toString('hex') + new Date().getTime().toString(16);
+    await this.userService.updateUser({ email }, { token });
     const mailLog = await this.mailerService.sendMail({
       to: email,
       subject: 'Email Confirmation',
